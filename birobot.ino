@@ -18,11 +18,11 @@ void setup()
   servoB.attach(servoPinB);
   servoC.attach(servoPinC);
   // Setup by pegging all servos to 0 degrees, then let them move to 90 deg
-  servoA.write(0);
+  servoA.write(90);
   delay(1000);
-  servoB.write(0);
+  servoB.write(90);
   delay(1000);
-  servoC.write(0);
+  servoC.write(90);
   delay(2000);
   // Define current coordinate as {0.0, 0.0, zMax} or something
 }
@@ -35,7 +35,7 @@ void loop()
   {
     xDes = 25.0*cos(i*0.01745);
     yDes = 25.0*sin(i*0.01745);
-    zDes = 10.0 + 10.0*sin(3.0*i*0.01745);
+    zDes = -50.0 + 10.0*sin(3.0*i*0.01745);
     moveTo(xDes, yDes, zDes);
     delay(50);
   }

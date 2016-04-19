@@ -86,6 +86,12 @@ int coord2servo(float x, float y, float z, char servo)
   int qA = quadraticSolve(EA, F, GA);
   int qB = quadraticSolve(EB, F, GB);
   int qC = quadraticSolve(EC, F, GC);
+
+  // quadraticSolve() output is in range [-90, 90], but the servos take input in range [0, 180]
+  qA += 90;
+  qB += 90;
+  qC += 90;
+  
   // I don't know how pointers work, sorry
   if(servo == 'a') {return qA;}
   if(servo == 'b') {return qB;}
