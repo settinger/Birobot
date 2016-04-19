@@ -1,34 +1,34 @@
 import numpy as np
 from numpy import sqrt
-import scipy
+from scipy.optimize import fsolve
 
 from biro_constants_bad import *
 
 
 # Rotation matrix from a Scipy mailing list, March 2009
 def rotationMatrix(direction, angle):
-     """
-     Create a rotation matrix corresponding to the rotation around a general
-     axis by a specified angle.
-
-     R = dd^T + cos(a) (I - dd^T) + sin(a) skew(d)
-
-     Parameters:
-
-         angle : float a
-         direction : array d
-     """
-     d = np.array(direction, dtype=np.float64)
-     d /= np.linalg.norm(d)
-
-     eye = np.eye(3, dtype=np.float64)
-     ddt = np.outer(d, d)
-     skew = np.matrix([[    0,  d[2],  -d[1]],
-                      [-d[2],     0,  d[0]],
-                      [d[1], -d[0],    0]], dtype=np.float64)
-
-     mtx = ddt + np.cos(angle) * (eye - ddt) + np.sin(angle) * skew
-     return mtx
+    """
+    Create a rotation matrix corresponding to the rotation around a general
+    axis by a specified angle.
+    
+    R = dd^T + cos(a) (I - dd^T) + sin(a) skew(d)
+    
+    Parameters:
+    
+    angle : float a
+    direction : array d
+    """
+    d = np.array(direction, dtype=np.float64)
+    d /= np.linalg.norm(d)
+    
+    eye = np.eye(3, dtype=np.float64)
+    ddt = np.outer(d, d)
+    skew = np.matrix([[    0,  d[2],  -d[1]],
+                  [-d[2],     0,   d[0]],
+                   [d[1], -d[0],     0]], dtype=np.float64)
+    
+    mtx = ddt + np.cos(angle) * (eye - ddt) + np.sin(angle) * skew
+    return mtx
 
 def quadraticSolve(E, F, G):
     t1 = (-F + sqrt(E*E + F*F - G*G))/(G-E)
@@ -62,23 +62,33 @@ def xyz2servo(x, y, z):
 def servo2xyz(qA, qB, qC):
     # Rotation matrix from frame N to frames of upper links:
     R_A_N = rotationMatrix([1,0,0], qA*np.pi/180)
-    R_B_N = rotationMatrix([0,0,1], 2*np.pi/3) * rotationMatrix([1,0,0], qB*np.pi/180)
-    R_C_N = rotationMatrix([0,0,1], 4*np.pi/3) * rotationMatrix([1,0,0], qC*np.pi/180)
+    R_B_N = rotationMatrix([1,0,0], qB*np.pi/180) * rotationMatrix([0,0,1], 2*np.pi/3)
+    R_C_N = rotationMatrix([1,0,0], qC*np.pi/180) * rotationMatrix([0,0,1], 4*np.pi/3)
 
     # Define frame indexes
-    a_x = R_A_N.I*np.matrix([1,0,0]).T
-    a_y = R_A_N.I*np.matrix([0,1,0]).T
-    a_z = R_A_N.I*np.matrix([0,0,1]).T
-    b_x = R_B_N.I*np.matrix([1,0,0]).T
-    b_y = R_B_N.I*np.matrix([0,1,0]).T
-    b_z = R_B_N.I*np.matrix([0,0,1]).T
-    c_x = R_C_N.I*np.matrix([1,0,0]).T
-    c_y = R_C_N.I*np.matrix([0,1,0]).T
-    c_z = R_C_N.I*np.matrix([0,0,1]).T
+    n_x = np.matrix([1,0,0]).T
+    n_y = np.matrix([0,1,0]).T
+    n_z = np.matrix([0,0,1]).T
+    a_x = R_A_N.I*n_x
+    a_y = R_A_N.I*n_y
+    a_z = R_A_N.I*n_z
+    b_x = R_B_N.I*n_x
+    b_y = R_B_N.I*n_y
+    b_z = R_B_N.I*n_z
+    c_x = R_C_N.I*n_x
+    c_y = R_C_N.I*n_y
+    c_z = R_C_N.I*n_z
+
+    A0 = -sB/2*n_y
+    B0 = birobot.rotationMatrix([0,0,1], 2*np.pi/3)*A0
+    C0 = birobot.rotationMatrix([0,0,1], 2*np.pi/3)*B0
+    A1 = A0 - L*a_y
+    B1 = B0 - L*b_y
+    C1 = C0 - L*c_y
 
     # Position vectors
     #r_Pa_N0 = 
-    
+
     return 0
 
 def equations(p):
