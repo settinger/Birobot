@@ -1,8 +1,6 @@
 from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.animation as animation
 import matplotlib
 matplotlib.use('TkAgg')
 
@@ -12,7 +10,8 @@ from biro_constants_bad import *
 # Get list of actions to simulate
 ##waypts = [(0, 0, -60), (0, 0, -70), (10, 0, -80), (10, 10, -80), (-10, 10, -40), (-10, -10, -40), (10, -10, -40), (10, 0, -40), (0, 0, -40)]
 ##waypts = [(0, 0, 0), (0, 0, -10)]
-waypts = [(25.0*np.cos(q*0.01745), 25.0*np.sin(q*0.01745), -50.0 + 10.0*np.sin(3.0*q*0.01745)) for q in np.linspace(0, 360, 20)]
+waypts = [(0,0,0) for p in range(5)]
+waypts += [(25.0*np.cos(q*0.01745), 25.0*np.sin(q*0.01745), -60.0 + 10.0*np.sin(3.0*q*0.01745)) for q in np.linspace(0, 360, 50)]
 
 # Initialize frame
 fig = plt.figure()
@@ -91,17 +90,19 @@ for waypt in waypts:
         Alink = [(A0[n].sum(), A1[n].sum()) for n in [0, 1, 2]]
         Blink = [(B0[n].sum(), B1[n].sum()) for n in [0, 1, 2]]
         Clink = [(C0[n].sum(), C1[n].sum()) for n in [0, 1, 2]]
-        ax.plot(Alink[0], Alink[1], Alink[2], 'r:')
-        ax.plot(Blink[0], Blink[1], Blink[2], 'r:')
-        ax.plot(Clink[0], Clink[1], Clink[2], 'r:')
+        ax.plot(Alink[0], Alink[1], Alink[2], 'r--', lw=3)
+        ax.plot(Blink[0], Blink[1], Blink[2], 'r--', lw=3)
+        ax.plot(Clink[0], Clink[1], Clink[2], 'r--', lw=3)
         
         # Draw the parallelograms
         Alink = [(PA[n].sum(), A1[n].sum()) for n in [0, 1, 2]]
         Blink = [(PB[n].sum(), B1[n].sum()) for n in [0, 1, 2]]
         Clink = [(PC[n].sum(), C1[n].sum()) for n in [0, 1, 2]]
-        ax.plot(Alink[0], Alink[1], Alink[2], 'b:')
-        ax.plot(Blink[0], Blink[1], Blink[2], 'b:')
-        ax.plot(Clink[0], Clink[1], Clink[2], 'b:')
+        ax.plot(Alink[0], Alink[1], Alink[2], 'b--', lw=3)
+        ax.plot(Blink[0], Blink[1], Blink[2], 'b--', lw=3)
+        ax.plot(Clink[0], Clink[1], Clink[2], 'b--', lw=3)
+        
+        ax.plot(pathx, pathy, pathz, 'm:')
 
         ax.set_xlim3d((-50,50))
         ax.set_ylim3d((-50,50))
@@ -109,7 +110,7 @@ for waypt in waypts:
 
         vec = PA - A1
         vec = vec.T*vec
-        print(str(qA) + ', ' + str(qB) + ', ' + str(qC))
+#        print(str(qA) + ', ' + str(qB) + ', ' + str(qC))
         #plt.show()
-        plt.pause(0.1)
+        plt.pause(0.001)
     oldpt = waypt

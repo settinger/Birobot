@@ -35,7 +35,7 @@ void loop()
   {
     xDes = 25.0*cos(i*0.01745);
     yDes = 25.0*sin(i*0.01745);
-    zDes = -50.0 + 10.0*sin(3.0*i*0.01745);
+    zDes = -60.0 + 10.0*sin(3.0*i*0.01745);
     moveTo(xDes, yDes, zDes);
     delay(50);
   }
