@@ -1,10 +1,10 @@
 from math import sqrt
 # Geometric constants (in mm):
-L = 50.0; # This assumes all upper links are the same length
-l = 50.0; # This assumes all parallelograms are the same length
-h = 15.0; # Parallelogram width
+L = 123.0; # This assumes all upper links are the same length
+l = 175.0; # This assumes all parallelograms are the same length
+h = 25.0; # Parallelogram width (UNUSED)
 sB = 70.0; # Length of side of base triangle
-sP = 30.0; # Length of side of actuator triangle
+sP = 70.0; # Length of side of actuator triangle
 
 # Personal preference constants:
 distThresh = 2.0; # If a move travels more mm than this, break it up into segments

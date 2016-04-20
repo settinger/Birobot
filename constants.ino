@@ -1,12 +1,12 @@
 // Geometric constants (in mm):
-float L = 50; // This assumes all upper links are the same length
-float l = 50; // This assumes all parallelograms are the same length
-float h = 15; // Parallelogram width
+float L = 123; // This assumes all upper links are the same length
+float l = 175; // This assumes all parallelograms are the same length
+float h = 25; // Parallelogram width (UNUSED)
 float sB = 70; // Length of side of base triangle
-float sP = 30; // Length of side of actuator triangle
+float sP = 70; // Length of side of actuator triangle
 
 // Personal preference constants:
-float distThresh = 2.0; // If a move travels more mm than this, break it up into segments
+float distThresh = 0.5; // If a move travels more mm than this, break it up into segments
 float rotvel = 0.3; // servo rotational velocity (in deg/ms)
 float zMax = 20;   // farthest up (in mm) that the end effector will go
 float zMin; float xMax; float xMin; float yMax; float yMin; // eventually i should figure these out too

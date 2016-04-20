@@ -1,6 +1,7 @@
 from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib
 matplotlib.use('TkAgg')
 
@@ -10,14 +11,13 @@ from biro_constants_bad import *
 # Get list of actions to simulate
 ##waypts = [(0, 0, -60), (0, 0, -70), (10, 0, -80), (10, 10, -80), (-10, 10, -40), (-10, -10, -40), (10, -10, -40), (10, 0, -40), (0, 0, -40)]
 ##waypts = [(0, 0, 0), (0, 0, -10)]
-waypts = [(0,0,0) for p in range(5)]
-waypts += [(25.0*np.cos(q*0.01745), 25.0*np.sin(q*0.01745), -60.0 + 10.0*np.sin(3.0*q*0.01745)) for q in np.linspace(0, 360, 50)]
+waypts = [(50.0*np.cos(q*0.01745), 50.0*np.sin(q*0.01745), -150.0 + 20.0*np.sin(3.0*q*0.01745)) for q in np.linspace(0, 360, 50)]
 
 # Initialize frame
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-oldpt = (0,0,0)
+oldpt = (0,0,-100)
 pathx = [oldpt[0]]
 pathy = [oldpt[1]]
 pathz = [oldpt[2]]
@@ -104,9 +104,9 @@ for waypt in waypts:
         
         ax.plot(pathx, pathy, pathz, 'm:')
 
-        ax.set_xlim3d((-50,50))
-        ax.set_ylim3d((-50,50))
-        ax.set_zlim3d((-100,0))
+        ax.set_xlim3d((-150,150))
+        ax.set_ylim3d((-150,150))
+        ax.set_zlim3d((-300,0))
 
         vec = PA - A1
         vec = vec.T*vec
