@@ -29,7 +29,7 @@ void moveTo(float xDes, float yDes, float zDes)
   int allotTime;
   while(!doneMoving)
   {
-    // if the distance betwen current and desired points is greater than 2mm, set an interim point
+    // if the distance betwen current and desired points is greater than some threshold, set an interim point
     dist = sqrt(sq(xDes-xCur) + sq(yDes-yCur) + sq(zDes-zCur));
     if(dist > distThresh)
     {
@@ -76,10 +76,10 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float E = 2*L*(y+a);
     float F = 2*L*z;
     float G = x*x + y*y + z*z + a*a + L*L + 2*y*a - l*l;
-    if (((E*E + F*F - G*G) > 0) && E != G)
+    if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
       int q = quadraticSolve(E, F, G);
-      q += 90;
+      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
       return q;
     }
     else
@@ -92,10 +92,10 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float E = -L*((sqrt(3)*(x+b)) + y + c);
     float F = 2*L*z;
     float G = x*x + y*y + z*z + b*b + c*c + L*L + 2*(b*x + c*y) - l*l;
-    if (((E*E + F*F - G*G) > 0) && E != G)
+    if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
       int q = quadraticSolve(E, F, G);
-      q += 90;
+      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
       return q;
     }
     else
@@ -108,10 +108,10 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float E = L*((sqrt(3)*(x-b)) - y - c);
     float F = 2*L*z;
     float G = x*x + y*y + z*z + b*b + c*c + L*L + 2*(c*y - b*x) - l*l;
-    if (((E*E + F*F - G*G) > 0) && E != G)
+    if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
       int q = quadraticSolve(E, F, G);
-      q += 90;
+      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
       return q;
     }
     else

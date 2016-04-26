@@ -8,7 +8,7 @@ float sP = 70; // Length of side of actuator triangle
 // Personal preference constants:
 float distThresh = 0.5; // If a move travels more mm than this, break it up into segments
 float rotvel = 0.3; // servo rotational velocity (in deg/ms)
-float zMax = 20;   // farthest up (in mm) that the end effector will go
+float zMax = -20.0;   // farthest up (in mm) that the end effector will go (UNUSED)
 float zMin; float xMax; float xMin; float yMax; float yMin; // eventually i should figure these out too
 
 // Do-not-touch constants:

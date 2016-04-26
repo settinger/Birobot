@@ -23,7 +23,7 @@ void setup()
   servoB.write(90);
   delay(1000);
   servoC.write(90);
-  delay(2000);
+  delay(1000);
   // Define current coordinate as {0.0, 0.0, zMax} or something
 }
 
@@ -33,9 +33,9 @@ void loop()
 {  
   for(i=0; i<360; i++)
   {
-    xDes = 25.0*cos(i*0.01745);
-    yDes = 25.0*sin(i*0.01745);
-    zDes = -60.0 + 10.0*sin(3.0*i*0.01745);
+    xDes = 50.0*cos(i*0.01745);
+    yDes = 50.0*sin(i*0.01745);
+    zDes = -150.0 + 20.0*sin(3.0*i*0.01745);
     moveTo(xDes, yDes, zDes);
     delay(50);
   }
