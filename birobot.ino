@@ -17,7 +17,7 @@ void setup()
   servoA.attach(servoPinA);
   servoB.attach(servoPinB);
   servoC.attach(servoPinC);
-  // Setup by pegging all servos to 0 degrees, then let them move to 90 deg
+  // Setup by aiming all servos to point outward
   servoA.write(90);
   delay(1000);
   servoB.write(90);
@@ -25,18 +25,19 @@ void setup()
   servoC.write(90);
   delay(1000);
   // Define current coordinate as {0.0, 0.0, zMax} or something
-}
-
-// Goofy demo: wobble in a circle
-int i;
-void loop()
-{  
-  for(i=0; i<360; i++)
+  xCur = 0; yCur = 0; zCur = 0;
+  // Go through waypoints:
+  int i;
+  for(i=0; i<getArrayLength(); i++)
   {
-    xDes = 50.0*cos(i*0.01745);
-    yDes = 50.0*sin(i*0.01745);
-    zDes = -150.0 + 20.0*sin(3.0*i*0.01745);
+    xDes = getWaypt(i, 0);
+    yDes = getWaypt(i, 1);
+    zDes = getWaypt(i, 2);
     moveTo(xDes, yDes, zDes);
     delay(50);
   }
+}
+
+void loop()
+{  
 }
