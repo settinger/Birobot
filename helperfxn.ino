@@ -1,4 +1,4 @@
-int quadraticSolve(float E, float F, float G)
+int quadraticSolve(float E, float F, float G, int qCur)
 {
   // Two angle solutions
   float tOne = (-F + sqrt(E*E + F*F - G*G))/(G - E);
@@ -7,10 +7,10 @@ int quadraticSolve(float E, float F, float G)
   float qTwo = 2*atan(tTwo)*180/M_PI;
   int q;
   // Shift values so they are between 0 and 180 degrees
-  if (qOne < 0) {qOne += 180;}
-  if (qTwo < 0) {qTwo += 180;}
-  // Choose the angle q that buckles out more
-  if (qOne < qTwo)
+  qOne += 90;
+  qTwo += 90;
+  // Choose the angle q that is closest to qCur
+  if (sq(qOne-qCur) < sq(qTwo-qCur))
   {
     q = (int) (qOne+0.5); // Add 0.5 to ensure proper rounding
   }
@@ -78,8 +78,7 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float G = x*x + y*y + z*z + a*a + L*L + 2*y*a - l*l;
     if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
-      int q = quadraticSolve(E, F, G);
-      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
+      int q = quadraticSolve(E, F, G, qCur);
       return q;
     }
     else
@@ -94,8 +93,7 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float G = x*x + y*y + z*z + b*b + c*c + L*L + 2*(b*x + c*y) - l*l;
     if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
-      int q = quadraticSolve(E, F, G);
-      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
+      int q = quadraticSolve(E, F, G, qCur);
       return q;
     }
     else
@@ -110,8 +108,7 @@ int coord2servo(float x, float y, float z, char servo, int qCur)
     float G = x*x + y*y + z*z + b*b + c*c + L*L + 2*(c*y - b*x) - l*l;
     if (((E*E + F*F - G*G) > 0) && E != G) // Ensure a solution exists
     {
-      int q = quadraticSolve(E, F, G);
-      q += 90; // the function quadraticSolve uses a different servo orientation; this line compensates
+      int q = quadraticSolve(E, F, G, qCur);
       return q;
     }
     else
