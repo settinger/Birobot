@@ -12,7 +12,7 @@ The Arduino code can be uploaded to Birobot from any computer with the Arduino I
 - [Install the Arduino IDE](https://www.arduino.cc/en/Main/Software).
 - Create an Arduino project called "Birobot." Copy the files `Birobot.ino`, `helperfxn.ino`, `constants.ino`, and `path.ino`. Make sure the capitalization of the folder matches the capitalization of `Birobot.ino` (the rest don't matter).
 - The file `constants.ino` contains a list of variables that correspond to physical dimensions of Birobot. These should be as accurate as possible for smooth, linear motion of the end effector.
-- The file `path.ino` contains a list of waypoints that Birobot will visit in succession. These can be edited by hand, or buy using `upload.bat` (see below).
+- The file `path.ino` contains a list of waypoints that Birobot will visit in succession. These can be edited by hand, or by using `upload.bat` (see below).
 
 ### Uploading plaintext coordinates (Windows)
 - Ensure you have the Arduino IDE version 1.5.6 or newer.
