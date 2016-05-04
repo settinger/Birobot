@@ -18,6 +18,12 @@ void setup()
   servoB.attach(servoPinB);
   servoC.attach(servoPinC);
   // Setup by aiming all servos to point outward
+  servoA.write(45);
+  delay(1000);
+  servoB.write(45);
+  delay(1000);
+  servoC.write(45);
+  delay(1000);
   servoA.write(90);
   delay(1000);
   servoB.write(90);
@@ -25,7 +31,7 @@ void setup()
   servoC.write(90);
   delay(1000);
   // Define current coordinate as {0.0, 0.0, zMax} or something
-  xCur = 0; yCur = 0; zCur = 0;
+  xCur = 0; yCur = 0; zCur = -130;
   // Go through waypoints:
   int i;
   for(i=0; i<getArrayLength(); i++)
@@ -34,7 +40,7 @@ void setup()
     yDes = getWaypt(i, 1);
     zDes = getWaypt(i, 2);
     moveTo(xDes, yDes, zDes);
-    delay(50);
+    delay(500);
   }
 }
 

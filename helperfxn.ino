@@ -18,6 +18,10 @@ int quadraticSolve(float E, float F, float G, int qCur)
   {
     q = (int) (qTwo+0.5); // Add 0.5 to ensure proper rounding
   }
+  if (!servosToTheLeft)
+  {
+    q = 180 - q;
+  }
   return q;
 }
 
