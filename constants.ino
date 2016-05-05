@@ -1,3 +1,6 @@
+// Construction properties
+boolean servosToTheLeft = false; // looking from above, with arm A pointing at you, is servo A to the left of arm A?
+
 // Geometric constants (in mm):
 float L = 123; // This assumes all upper links are the same length
 float l = 175; // This assumes all parallelograms are the same length
