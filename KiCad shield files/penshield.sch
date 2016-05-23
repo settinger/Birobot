@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:penshield-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -201,7 +202,7 @@ Wire Wire Line
 	3300 2800 3300 1850
 Connection ~ 3300 1850
 $Comp
-L Switch_SPDT_x2 SW1
+L Switch_SPDT_x2-RESCUE-penshield SW1
 U 2 1 571DBD8A
 P 3000 2900
 F 0 "SW1" H 2800 3050 50  0000 C CNN
@@ -212,7 +213,7 @@ F 3 "" H 3000 2900 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch_SPDT_x2 SW1
+L Switch_SPDT_x2-RESCUE-penshield SW1
 U 1 1 571DBDC5
 P 2100 1950
 F 0 "SW1" H 1900 2100 50  0000 C CNN
