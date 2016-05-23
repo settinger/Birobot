@@ -24,15 +24,15 @@ void setup()
   delay(1000);
   servoC.write(45);
   delay(1000);
-  servoA.write(90);
-  delay(1000);
-  servoB.write(90);
-  delay(1000);
-  servoC.write(90);
-  delay(1000);
+//  servoA.write(90);
+//  delay(1000);
+//  servoB.write(90);
+//  delay(1000);
+//  servoC.write(90);
+//  delay(1000);
   // Define current coordinate as {0.0, 0.0, zMax} or something
   xCur = 0; yCur = 0; zCur = -130;
-  // Go through waypoints:
+//  // Go through waypoints:
 //  int i = 0;
 //  for(i=0; i<getArrayLength(); i++)
 //  {
@@ -42,21 +42,30 @@ void setup()
 //    moveTo(xDes, yDes, zDes);
 //    delay(500);
 //  }
-  zDes = -130.0;
 }
 
 float i = 0.0;
 void loop()
 {  
-  // Debug mode: swirl around in a plane
-  float r = 40*sq(cos(i*M_PI/2000.0));
-  xDes = r*cos(i*M_PI/180);
-  yDes = r*sin(i*M_PI/180);
-  moveTo(xDes,yDes,zDes);
-  i += 1.0;
-  if(i >= 2160)
+    // Go through waypoints:
+  int i = 0;
+  for(i=0; i<getArrayLength(); i++)
   {
-    i = 0.0;
-    zDes += -5;
+    xDes = getWaypt(i, 0);
+    yDes = getWaypt(i, 1);
+    zDes = getWaypt(i, 2);
+    zDes -= zDev(xDes, yDes);
+    moveTo(xDes, yDes, zDes);
+    delay(500);
+    if(zDes < -200) {
+      delay(1500);
+    }
   }
+//  // Debug mode: Poke points at the center and edges of the HK characters
+//  float r = 40*sq(cos(i*M_PI/2000.0));
+//  xDes = r*cos(i*M_PI/180);
+//  yDes = r*sin(i*M_PI/180);
+//  zDes = -280; // This happens to correspond to 18 cm above the ground, in current configuration
+//  moveTo(xDes,yDes,zDes);
+//  i += 1.0;
 }
